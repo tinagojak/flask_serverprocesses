@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+	<form method="POST" action="" onSubmit="JavaScript:loading();" style="margin-top: 20px; margin-bottom:20px">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<div class="form-group">
+				{{ form.server.label(class="form-control-label") }}
+				{{ form.server(class="form-control form-control-lg") }}
+			</div>
+			<div class="form-group">
+				{{ form.username.label(class="form-control-label") }}
+				{{ form.username(class="form-control form-control-lg") }}
+			</div>
+			<div class="form-group">
+				{{ form.password.label(class="form-control-label") }}
+				{{ form.password(class="form-control form-control-lg") }}
+			</div>
+		</fieldset>
+		<div class="form-group">
+			{{ form.submit(class="btn btn-outline-info") }}
+		</div>
+	</form>
+
+	<div class="text-center">
+		<div class="spinner-border m-5 text-secondary" role="status" id="spinner" style="width: 5rem; height: 5rem; display: none">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+
+	{% if processes %}
+	<table class="table" id="table">
+	  	<thead>
+	    	<tr>
+	      		<th scope="col" title="Stupac Ime">Ime procesa</th>
+	      		<th scope="col" title="Stupac PID">PID</th>
+	      		<th scope="col" title="Stupac CPU">CPU iskoristivost</th>
+	    	</tr>
+	  	</thead>
+	  	<tbody>
+	  		{% for process in processes %}
+		    <tr>
+		    	<td>{{ process.command }}</td>
+		   		<td>{{ process.pid }}</td>
+		    	<td>{{ process.cpu }}</td>
+		    </tr>
+		    {% endfor %}
+	  	</tbody>
+	</table>
+	<ul>
+	{% endif %}
+
+	<script type="text/javascript">
+	    function loading(){
+	        $('#spinner').show();     
+	    }
+	</script>
+
+{% endblock content %}
+
